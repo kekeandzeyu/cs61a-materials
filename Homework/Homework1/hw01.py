@@ -1,5 +1,6 @@
 from operator import add, sub
 
+
 def a_plus_abs_b(a, b):
     """Return a+abs(b), but without calling abs.
 
@@ -17,6 +18,7 @@ def a_plus_abs_b(a, b):
     else:
         f = add
     return f(a, b)
+
 
 def a_plus_abs_b_syntax_check():
     """Check that you didn't change the return statement of a_plus_abs_b.
@@ -42,10 +44,13 @@ def two_of_three(i, j, k):
     >>> two_of_three(5, 5, 5)
     50
     """
-    return min(i*i+j*j, i*i+k*k, j*j+k*k)
+    return min(i * i + j * j, i * i + k * k, j * j + k * k)
     # Alternate solution
+
+
 def two_of_three_alternate(i, j, k):
-    return i**2 + j**2 + k**2 - max(i, j, k)**2
+    return i ** 2 + j ** 2 + k ** 2 - max(i, j, k) ** 2
+
 
 def two_of_three_syntax_check():
     """Check that your two_of_three code consists of nothing but a return statement.
@@ -98,10 +103,9 @@ def hailstone(n):
     while n != 1:
         print(n)
         if n % 2 == 0:
-            n = n // 2      # Integer division prevents "1.0" output
+            n = n // 2  # Integer division prevents "1.0" output
         else:
             n = 3 * n + 1
         length = length + 1
-    print(n)                # n is now 1
+    print(n)  # n is now 1
     return length
-
