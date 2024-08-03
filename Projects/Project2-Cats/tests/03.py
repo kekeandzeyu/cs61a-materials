@@ -7,34 +7,47 @@ test = {
         {
           'code': r"""
           >>> accuracy("12345", "12345") # This should return 100.0 (not the integer 100!)
-          100.0
+          29b153c9e33f1f3e87e909e781b23549
+          # locked
           >>> accuracy("a b c", "a b c")
-          100.0
+          29b153c9e33f1f3e87e909e781b23549
+          # locked
           >>> accuracy("a  b  c  d", "b  a  c  d")
-          50.0
+          e790dcd7d02c731a14852c9762530dff
+          # locked
           >>> accuracy("a b", "c d e")
-          0.0
+          c724dae4a49e254e46460a5c2ce9f821
+          # locked
           >>> accuracy("Cat", "cat") # the function is case-sensitive
-          0.0
+          c724dae4a49e254e46460a5c2ce9f821
+          # locked
           >>> accuracy("a b c d", "a d")
-          25.0
+          7cbad8c4359bad70d88711ccbdb3b0d5
+          # locked
           >>> accuracy("abc", " ")
-          0.0
+          c724dae4a49e254e46460a5c2ce9f821
+          # locked
           >>> accuracy("a b \tc" , "a b c") # Tabs don't count as words
-          100.0
+          29b153c9e33f1f3e87e909e781b23549
+          # locked
           >>> accuracy("abc", "")
-          0.0
+          c724dae4a49e254e46460a5c2ce9f821
+          # locked
           >>> accuracy("", "abc")
-          0.0
+          c724dae4a49e254e46460a5c2ce9f821
+          # locked
           >>> accuracy("a b c d", "b c d")
-          0.0
+          c724dae4a49e254e46460a5c2ce9f821
+          # locked
           >>> accuracy("cats.", "cats") # punctuation counts
-          0.0
+          c724dae4a49e254e46460a5c2ce9f821
+          # locked
           >>> accuracy("", "") # Returns 100.0
-          100.0
+          29b153c9e33f1f3e87e909e781b23549
+          # locked
           """,
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False
         },
         {

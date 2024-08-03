@@ -181,9 +181,22 @@ def autocorrect(typed_word, word_list, diff_function, limit):
     >>> autocorrect("tosting", ["testing", "asking", "fasting"], first_diff, 10)
     'testing'
     """
-    # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 5
+    difference = []
+    for word in word_list:
+        if word == typed_word:
+            return typed_word
+        difference.append(diff_function(typed_word, word, limit))
+    min_difference = difference[0]
+    index = 0
+    for i in range(len(difference)):
+        if difference[i] <= limit and min_difference > difference[i]:
+            min_difference = difference[i]
+            index = i
+    for i in range(0, index):
+        if difference[i] == min_difference:
+            index = i
+            break
+    return typed_word[index]
 
 
 def furry_fixes(typed, source, limit):
