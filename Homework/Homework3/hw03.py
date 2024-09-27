@@ -24,8 +24,12 @@ def num_eights(n):
     ...       ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    if n == 0:
+        return 0
+    if n % 10 == 8:
+        return 1 + num_eights(n // 10)
+    else:
+        return num_eights(n // 10)
 
 def digit_distance(n):
     """Determines the digit distance of n.
@@ -46,8 +50,10 @@ def digit_distance(n):
     ...       ['For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    if n < 10:
+        return 0
+    else:
+        return abs(n % 10 - (n // 10) % 10) + digit_distance(n // 10)
 
 def interleaved_sum(n, odd_func, even_func):
     """Compute the sum odd_func(1) + even_func(2) + odd_func(3) + ..., up
@@ -70,7 +76,14 @@ def interleaved_sum(n, odd_func, even_func):
     >>> check(HW_SOURCE_FILE, 'interleaved_sum', ['BitAnd', 'BitOr', 'BitXor']) # ban bitwise operators, don't worry about these if you don't know what they are
     True
     """
-    "*** YOUR CODE HERE ***"
+    def helper(k):
+        if k > n:
+            return 0
+        if k == n:
+            return odd_func(k)
+        else:
+            return odd_func(k) + even_func(k + 1) + helper(k + 2)
+    return helper(1)
 
 
 def next_smaller_dollar(bill):
@@ -106,7 +119,19 @@ def count_dollars(total):
     >>> check(HW_SOURCE_FILE, 'count_dollars', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    def count_helper(total_amount, smallest_bill):
+        if total_amount == 0:
+            return 1
+
+        if total_amount < 0 or smallest_bill is None:
+            return 0
+
+        with_smallest = count_helper(total_amount - smallest_bill, smallest_bill)
+        without_smallest = count_helper(total_amount, next_smaller_dollar(smallest_bill))
+
+        return with_smallest + without_smallest
+
+    return count_helper(total, 100)
 
 
 def next_larger_dollar(bill):
@@ -142,8 +167,20 @@ def count_dollars_upward(total):
     >>> check(HW_SOURCE_FILE, 'count_dollars_upward', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
 
+    def helper(total_money, bill):
+        if total_money == 0:
+            return 1
+        elif total_money < 0 or bill > total_money:
+            return 0
+        elif bill == 100:
+           return 1 if total_money % 100 == 0 else 0
+        else:
+            with_bill = helper(total_money - bill, bill)
+            without_bill = helper(total_money, next_larger_dollar(bill))
+            return with_bill + without_bill
+
+    return helper(total, 1)
 
 def print_move(origin, destination):
     """Print instructions to move a disk."""
@@ -177,7 +214,13 @@ def move_stack(n, start, end):
     Move the top disk from rod 1 to rod 3
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
-    "*** YOUR CODE HERE ***"
+    if n == 1:
+        print_move(start, end)
+    else:
+        other = 6 - start - end
+        move_stack(n - 1, start, other)  # Move n-1 disks from start to other
+        print_move(start, end)  # Move the largest disk from start to end
+        move_stack(n - 1, other, end)  # Move n-1 disks from other to end
 
 
 from operator import sub, mul
@@ -193,5 +236,28 @@ def make_anonymous_factorial():
     ...     ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'FunctionDef', 'Recursion'])
     True
     """
-    return 'YOUR_EXPRESSION_HERE'
+    return (lambda f: lambda n: f(f, n))(lambda f, n: 1 if n == 1 else mul(n, f(f, sub(n, 1))))
+'''
+    Explanation of the Y Combinator:
+
+    1. Inner Lambda (Factorial Logic):
+       - Takes two arguments: 
+         - `f`: A placeholder for the function itself (needed for recursion).
+         - `n`: The number for which to calculate the factorial.
+       - Implements the base case (n == 1) and the recursive step.
+
+    2. Outer Lambda (Y Combinator):
+       - Takes the factorial logic (as `f`) and returns a new function.
+       - This new function takes `n` as input and applies `f` to itself (`f(f, n)`). 
+       - This self-application is the key to creating recursion.
+
+    3. How Recursion Works:
+       - In `f(f, n)`, the first `f` is the factorial logic, and the second `f` is passed as an argument.
+       - This allows the factorial logic to call itself indirectly through the `f` argument.
+       - Each recursive call effectively gets a "copy" of the factorial logic, enabling the chain of recursive calls.
+
+    4. Benefits:
+       - Enables recursion without explicitly naming the function.
+       - Demonstrates a powerful concept from lambda calculus. 
+'''
 
