@@ -1,8 +1,8 @@
-# UC Berkeley CS61A Study Notes
+# CS61A Study Materials
 
 ## 1 Introduction
 
-In this repository, I've packed all the materials in CS61A.  
+In this repository, I've packed all the materials in CS61A: Structure and Interpretation of Computer Programs from UC Berkeley.  
 
 Want to refer to my notes about Python when learning CS61A? Please visit the [link](https://csstudy.pages.dev/) and click on Python Programming topic for more!
 
